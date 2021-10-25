@@ -16,7 +16,8 @@
     }
 
     body {
-        color: #444;
+        color: #ADBAC7;
+        background: #22272E;
         font: 14px/2 Arimo, Arial, sans-serif;
     }
 
@@ -41,7 +42,7 @@
     }
     
     h1 a {
-        color: #444;
+        color: #ADBAC7;
         text-decoration: none;
         border-bottom: 1px dotted #ddd;
     }
@@ -117,19 +118,22 @@
     }
 
     #footer a {
-        color: #444;
+        color: #ADBAC7;
         text-decoration: none;
-        border-bottom: 1px dotted #ddd;
     }
     
     .error {
         color: #a44;
     }
+    
+    .ok {
+        color: #12bc00;
+    }
     </style>
 </head>
 <body>
     <div id='page'>
-        <h1 id='header'><a href="http://shvchk.github.io/gddl">Google Drive Direct Link</a></h1>
+        <h1 id='header'>Google Drive Direct Link</h1>
         <div id='content'>
             <div id='link-processing'>
                 <input id='link' type='text' size='80' placeholder='Paste your link or file ID here'>
@@ -137,7 +141,7 @@
                 <button id='clear'>Clear</button>
             </div>
         </div>
-        <div id='footer'><a href='https://github.com/shvchk/gddl'>GitHub</a></div>
+        <div id='footer'><a href='https://github.com/LoneDev6/gddl/'>Source code</a></div>
     </div>
 
     <script>
@@ -166,7 +170,7 @@
             }
 
             var url = base_url + id;
-            var link = (id) ? '<a href="' + url + '">' + url + '</a>' : '<span class="error">Wrong link or ID</span>';
+            var link = (id) ? '<input type="text" size="80" value="' + url + '"><br><span class="ok">Direct link copied to clipboard!</span>' : '<span class="error">Wrong link or ID</span>';
             var link_wrapper = dom.gid(el_processed_link_id);
             
             if (link_wrapper) {
@@ -178,6 +182,9 @@
             link_wrapper.innerHTML = '↳ ' + link;
 
             dom.gid('content').appendChild(link_wrapper);
+
+            if(id)
+                navigator.clipboard.writeText(url);
         });
 
         dom.click(dom.gid('clear'), function() {
